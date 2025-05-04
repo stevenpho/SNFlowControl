@@ -96,9 +96,9 @@ Pod::Spec.new do |spec|
   #  Not including the public_header_files will make all headers public.
   #
 
-  spec.source_files  = "SNFlowControl", "SNFlowControl/**/*.{h,m,swift}"
+  spec.source_files  = "SNFlowControl/Resources/**/*.{h,m,swift}"
   #不包含哪些路徑底下的檔案 不建議把測試檔案放進來
-  spec.exclude_files = "SNFlowControlTests/**/*"
+  #spec.exclude_files = "SNFlowControlTests/**/*"
 
   # spec.public_header_files = "Classes/**/*.h"
 
