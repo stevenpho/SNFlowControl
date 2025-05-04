@@ -19,6 +19,12 @@ Pod::Spec.new do |spec|
   spec.version      = "1.0.0"
   spec.summary      = "A lightweight flow control."
 
+  # Swift Version
+  spec.swift_version = "5.0"
+  
+  # Platform
+  spec.platform = :ios, "13.0"
+
   # This description is used to generate tags and improve search results.
   #   * Think: What does it do? Why did you write it? What is the focus?
   #   * Try to keep it short, snappy and to the point.
@@ -90,8 +96,8 @@ Pod::Spec.new do |spec|
   #  Not including the public_header_files will make all headers public.
   #
 
-  spec.source_files  = "Classes", "Classes/**/*.{h,m,swift}"
-  spec.exclude_files = "Classes/Exclude"
+  spec.source_files  = "SNFlowControl", "SNFlowControl/**/*.{h,m,swift}"
+  spec.exclude_files = "SNFlowControl/Exclude"
 
   # spec.public_header_files = "Classes/**/*.h"
 
