@@ -6,23 +6,8 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		CEB6F5C02DC7CDC500F7C016 /* SNFlowControl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEB6F5B52DC7CDC400F7C016 /* SNFlowControl.framework */; };
-/* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		CEB6F5C12DC7CDC500F7C016 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CEB6F5AC2DC7CDC400F7C016 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = CEB6F5B42DC7CDC400F7C016;
-			remoteInfo = SNFlowControl;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		CEB6F5B52DC7CDC400F7C016 /* SNFlowControl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SNFlowControl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CEB6F5BF2DC7CDC500F7C016 /* SNFlowControlTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SNFlowControlTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -44,11 +29,6 @@
 			path = SNFlowControl;
 			sourceTree = "<group>";
 		};
-		CEB6F5C32DC7CDC500F7C016 /* SNFlowControlTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = SNFlowControlTests;
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,14 +39,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CEB6F5BC2DC7CDC500F7C016 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CEB6F5C02DC7CDC500F7C016 /* SNFlowControl.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -74,7 +46,6 @@
 			isa = PBXGroup;
 			children = (
 				CEB6F5B72DC7CDC400F7C016 /* SNFlowControl */,
-				CEB6F5C32DC7CDC500F7C016 /* SNFlowControlTests */,
 				CEB6F5B62DC7CDC400F7C016 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -83,7 +54,6 @@
 			isa = PBXGroup;
 			children = (
 				CEB6F5B52DC7CDC400F7C016 /* SNFlowControl.framework */,
-				CEB6F5BF2DC7CDC500F7C016 /* SNFlowControlTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -124,29 +94,6 @@
 			productReference = CEB6F5B52DC7CDC400F7C016 /* SNFlowControl.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		CEB6F5BE2DC7CDC500F7C016 /* SNFlowControlTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = CEB6F5CD2DC7CDC500F7C016 /* Build configuration list for PBXNativeTarget "SNFlowControlTests" */;
-			buildPhases = (
-				CEB6F5BB2DC7CDC500F7C016 /* Sources */,
-				CEB6F5BC2DC7CDC500F7C016 /* Frameworks */,
-				CEB6F5BD2DC7CDC500F7C016 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				CEB6F5C22DC7CDC500F7C016 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				CEB6F5C32DC7CDC500F7C016 /* SNFlowControlTests */,
-			);
-			name = SNFlowControlTests;
-			packageProductDependencies = (
-			);
-			productName = SNFlowControlTests;
-			productReference = CEB6F5BF2DC7CDC500F7C016 /* SNFlowControlTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -158,9 +105,6 @@
 				LastUpgradeCheck = 1620;
 				TargetAttributes = {
 					CEB6F5B42DC7CDC400F7C016 = {
-						CreatedOnToolsVersion = 16.2;
-					};
-					CEB6F5BE2DC7CDC500F7C016 = {
 						CreatedOnToolsVersion = 16.2;
 					};
 				};
@@ -180,20 +124,12 @@
 			projectRoot = "";
 			targets = (
 				CEB6F5B42DC7CDC400F7C016 /* SNFlowControl */,
-				CEB6F5BE2DC7CDC500F7C016 /* SNFlowControlTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		CEB6F5B32DC7CDC400F7C016 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CEB6F5BD2DC7CDC500F7C016 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -210,22 +146,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CEB6F5BB2DC7CDC500F7C016 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		CEB6F5C22DC7CDC500F7C016 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = CEB6F5B42DC7CDC400F7C016 /* SNFlowControl */;
-			targetProxy = CEB6F5C12DC7CDC500F7C016 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		CEB6F5C92DC7CDC500F7C016 /* Debug */ = {
@@ -419,36 +340,6 @@
 			};
 			name = Release;
 		};
-		CEB6F5CE2DC7CDC500F7C016 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.stevenpho.SNFlowControlTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		CEB6F5CF2DC7CDC500F7C016 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.stevenpho.SNFlowControlTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -466,15 +357,6 @@
 			buildConfigurations = (
 				CEB6F5C92DC7CDC500F7C016 /* Debug */,
 				CEB6F5CA2DC7CDC500F7C016 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		CEB6F5CD2DC7CDC500F7C016 /* Build configuration list for PBXNativeTarget "SNFlowControlTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				CEB6F5CE2DC7CDC500F7C016 /* Debug */,
-				CEB6F5CF2DC7CDC500F7C016 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

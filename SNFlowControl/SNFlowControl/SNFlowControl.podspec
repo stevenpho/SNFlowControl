@@ -97,7 +97,8 @@ Pod::Spec.new do |spec|
   #
 
   spec.source_files  = "SNFlowControl", "SNFlowControl/**/*.{h,m,swift}"
-  spec.exclude_files = "SNFlowControl/Exclude"
+  #不包含哪些路徑底下的檔案 不建議把測試檔案放進來
+  spec.exclude_files = "SNFlowControlTests/**/*"
 
   # spec.public_header_files = "Classes/**/*.h"
 
