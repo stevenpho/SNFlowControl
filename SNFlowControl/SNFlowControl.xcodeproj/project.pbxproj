@@ -27,7 +27,7 @@
 				CEB6F5C72DC7CDC500F7C016 /* Exceptions for "SNFlowControl" folder in "SNFlowControl" target */,
 			);
 			explicitFolders = (
-				Resources,
+				Classes,
 			);
 			path = SNFlowControl;
 			sourceTree = "<group>";
