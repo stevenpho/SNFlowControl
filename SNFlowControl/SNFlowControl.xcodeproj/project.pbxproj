@@ -6,8 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		CEB6F5D72DC7D03600F7C016 /* SNFlowControl.podspec in Resources */ = {isa = PBXBuildFile; fileRef = CEB6F5D42DC7D03600F7C016 /* SNFlowControl.podspec */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		CEB6F5B52DC7CDC400F7C016 /* SNFlowControl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SNFlowControl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEB6F5D42DC7D03600F7C016 /* SNFlowControl.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = SNFlowControl.podspec; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -48,6 +53,7 @@
 		CEB6F5AB2DC7CDC400F7C016 = {
 			isa = PBXGroup;
 			children = (
+				CEB6F5D42DC7D03600F7C016 /* SNFlowControl.podspec */,
 				CEB6F5B72DC7CDC400F7C016 /* SNFlowControl */,
 				CEB6F5B62DC7CDC400F7C016 /* Products */,
 			);
@@ -136,6 +142,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEB6F5D72DC7D03600F7C016 /* SNFlowControl.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
