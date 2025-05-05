@@ -1,5 +1,3 @@
-A lightweight flow control
-
 # SNFlowControl
 
 [![Platform](https://img.shields.io/cocoapods/p/SNFlowControl.svg)](https://cocoapods.org/pods/SNFlowControl)
