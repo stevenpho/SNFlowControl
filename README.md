@@ -28,6 +28,8 @@
 ```ruby
 pod 'SNFlowControl'
 ```
+
+### 🚀 Usage
 ```swift
 import SNFlowControl
 
@@ -65,15 +67,13 @@ func example1() {
     }.start()
 }
 ```
-🛠 Supported Platforms
+### 🛠 Supported Platforms
 iOS 11.0+
-
 macOS 10.13+
-
 Swift 5.0+
 
-📄 License
+### 📄 License
 MIT License. See LICENSE for details.
 
-💡 Inspiration
+### 💡 Inspiration
 Inspired by functional reactive programming and SwiftUI DSL.
