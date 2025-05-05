@@ -1,0 +1,726 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		21B2DB278E4D344EE246C7FD /* Pods_SNFlowControlExample_SNFlowControlExampleUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 503D4797A2233D8113B396C6 /* Pods_SNFlowControlExample_SNFlowControlExampleUITests.framework */; };
+		4B569204D065FEB7BA751898 /* Pods_SNFlowControlExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3894A95C57C857BF034A2D4 /* Pods_SNFlowControlExample.framework */; };
+		65EF48DCB07502268A49CE3E /* Pods_SNFlowControlExampleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45BBBEDD58F33D3158D4194D /* Pods_SNFlowControlExampleTests.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CE5AE2132DC927F100E89E7F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CE5AE1F42DC927F000E89E7F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CE5AE1FB2DC927F000E89E7F;
+			remoteInfo = SNFlowControlExample;
+		};
+		CE5AE21D2DC927F100E89E7F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CE5AE1F42DC927F000E89E7F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CE5AE1FB2DC927F000E89E7F;
+			remoteInfo = SNFlowControlExample;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		27E45043BE975BBE2EF70920 /* Pods-SNFlowControlExample-SNFlowControlExampleUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SNFlowControlExample-SNFlowControlExampleUITests.release.xcconfig"; path = "Target Support Files/Pods-SNFlowControlExample-SNFlowControlExampleUITests/Pods-SNFlowControlExample-SNFlowControlExampleUITests.release.xcconfig"; sourceTree = "<group>"; };
+		45BBBEDD58F33D3158D4194D /* Pods_SNFlowControlExampleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SNFlowControlExampleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		503D4797A2233D8113B396C6 /* Pods_SNFlowControlExample_SNFlowControlExampleUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SNFlowControlExample_SNFlowControlExampleUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		57CB6338CB7E9EFA95168D4D /* Pods-SNFlowControlExample-SNFlowControlExampleUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SNFlowControlExample-SNFlowControlExampleUITests.debug.xcconfig"; path = "Target Support Files/Pods-SNFlowControlExample-SNFlowControlExampleUITests/Pods-SNFlowControlExample-SNFlowControlExampleUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		6F5F8C274CBF998A02573890 /* Pods-SNFlowControlExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SNFlowControlExampleTests.debug.xcconfig"; path = "Target Support Files/Pods-SNFlowControlExampleTests/Pods-SNFlowControlExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
+		8A1CFFD703888CCBB07FB4B1 /* Pods-SNFlowControlExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SNFlowControlExampleTests.release.xcconfig"; path = "Target Support Files/Pods-SNFlowControlExampleTests/Pods-SNFlowControlExampleTests.release.xcconfig"; sourceTree = "<group>"; };
+		BA730294882DE52A4C9A0F56 /* Pods-SNFlowControlExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SNFlowControlExample.debug.xcconfig"; path = "Target Support Files/Pods-SNFlowControlExample/Pods-SNFlowControlExample.debug.xcconfig"; sourceTree = "<group>"; };
+		C3894A95C57C857BF034A2D4 /* Pods_SNFlowControlExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SNFlowControlExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE5AE1FC2DC927F000E89E7F /* SNFlowControlExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SNFlowControlExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE5AE2122DC927F100E89E7F /* SNFlowControlExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SNFlowControlExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE5AE21C2DC927F100E89E7F /* SNFlowControlExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SNFlowControlExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA57653D0DFB75C49080D92D /* Pods-SNFlowControlExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SNFlowControlExample.release.xcconfig"; path = "Target Support Files/Pods-SNFlowControlExample/Pods-SNFlowControlExample.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		CE5AE2242DC927F100E89E7F /* Exceptions for "SNFlowControlExample" folder in "SNFlowControlExample" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = CE5AE1FB2DC927F000E89E7F /* SNFlowControlExample */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		CE5AE1FE2DC927F000E89E7F /* SNFlowControlExample */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				CE5AE2242DC927F100E89E7F /* Exceptions for "SNFlowControlExample" folder in "SNFlowControlExample" target */,
+			);
+			path = SNFlowControlExample;
+			sourceTree = "<group>";
+		};
+		CE5AE2152DC927F100E89E7F /* SNFlowControlExampleTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+			);
+			path = SNFlowControlExampleTests;
+			sourceTree = "<group>";
+		};
+		CE5AE21F2DC927F100E89E7F /* SNFlowControlExampleUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+			);
+			path = SNFlowControlExampleUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CE5AE1F92DC927F000E89E7F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B569204D065FEB7BA751898 /* Pods_SNFlowControlExample.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE5AE20F2DC927F100E89E7F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65EF48DCB07502268A49CE3E /* Pods_SNFlowControlExampleTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE5AE2192DC927F100E89E7F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				21B2DB278E4D344EE246C7FD /* Pods_SNFlowControlExample_SNFlowControlExampleUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4FA4BD09E95CE24520FD24E0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C3894A95C57C857BF034A2D4 /* Pods_SNFlowControlExample.framework */,
+				503D4797A2233D8113B396C6 /* Pods_SNFlowControlExample_SNFlowControlExampleUITests.framework */,
+				45BBBEDD58F33D3158D4194D /* Pods_SNFlowControlExampleTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CE5AE1F32DC927F000E89E7F = {
+			isa = PBXGroup;
+			children = (
+				CE5AE1FE2DC927F000E89E7F /* SNFlowControlExample */,
+				CE5AE2152DC927F100E89E7F /* SNFlowControlExampleTests */,
+				CE5AE21F2DC927F100E89E7F /* SNFlowControlExampleUITests */,
+				CE5AE1FD2DC927F000E89E7F /* Products */,
+				E96DBE2F0822830B24C336FE /* Pods */,
+				4FA4BD09E95CE24520FD24E0 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		CE5AE1FD2DC927F000E89E7F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CE5AE1FC2DC927F000E89E7F /* SNFlowControlExample.app */,
+				CE5AE2122DC927F100E89E7F /* SNFlowControlExampleTests.xctest */,
+				CE5AE21C2DC927F100E89E7F /* SNFlowControlExampleUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E96DBE2F0822830B24C336FE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BA730294882DE52A4C9A0F56 /* Pods-SNFlowControlExample.debug.xcconfig */,
+				EA57653D0DFB75C49080D92D /* Pods-SNFlowControlExample.release.xcconfig */,
+				57CB6338CB7E9EFA95168D4D /* Pods-SNFlowControlExample-SNFlowControlExampleUITests.debug.xcconfig */,
+				27E45043BE975BBE2EF70920 /* Pods-SNFlowControlExample-SNFlowControlExampleUITests.release.xcconfig */,
+				6F5F8C274CBF998A02573890 /* Pods-SNFlowControlExampleTests.debug.xcconfig */,
+				8A1CFFD703888CCBB07FB4B1 /* Pods-SNFlowControlExampleTests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CE5AE1FB2DC927F000E89E7F /* SNFlowControlExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CE5AE2252DC927F100E89E7F /* Build configuration list for PBXNativeTarget "SNFlowControlExample" */;
+			buildPhases = (
+				C6504FCBD393F5E73831A528 /* [CP] Check Pods Manifest.lock */,
+				CE5AE1F82DC927F000E89E7F /* Sources */,
+				CE5AE1F92DC927F000E89E7F /* Frameworks */,
+				CE5AE1FA2DC927F000E89E7F /* Resources */,
+				6194B38B326C0D363A920E5D /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				CE5AE1FE2DC927F000E89E7F /* SNFlowControlExample */,
+			);
+			name = SNFlowControlExample;
+			productName = SNFlowControlExample;
+			productReference = CE5AE1FC2DC927F000E89E7F /* SNFlowControlExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CE5AE2112DC927F100E89E7F /* SNFlowControlExampleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CE5AE22A2DC927F100E89E7F /* Build configuration list for PBXNativeTarget "SNFlowControlExampleTests" */;
+			buildPhases = (
+				6DDC10C85C16C6566078BDAD /* [CP] Check Pods Manifest.lock */,
+				CE5AE20E2DC927F100E89E7F /* Sources */,
+				CE5AE20F2DC927F100E89E7F /* Frameworks */,
+				CE5AE2102DC927F100E89E7F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CE5AE2142DC927F100E89E7F /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				CE5AE2152DC927F100E89E7F /* SNFlowControlExampleTests */,
+			);
+			name = SNFlowControlExampleTests;
+			productName = SNFlowControlExampleTests;
+			productReference = CE5AE2122DC927F100E89E7F /* SNFlowControlExampleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		CE5AE21B2DC927F100E89E7F /* SNFlowControlExampleUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CE5AE22D2DC927F100E89E7F /* Build configuration list for PBXNativeTarget "SNFlowControlExampleUITests" */;
+			buildPhases = (
+				2263E0D29B6553A172D6BE4F /* [CP] Check Pods Manifest.lock */,
+				CE5AE2182DC927F100E89E7F /* Sources */,
+				CE5AE2192DC927F100E89E7F /* Frameworks */,
+				CE5AE21A2DC927F100E89E7F /* Resources */,
+				E54A3A0174E2BA0BEBF02252 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CE5AE21E2DC927F100E89E7F /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				CE5AE21F2DC927F100E89E7F /* SNFlowControlExampleUITests */,
+			);
+			name = SNFlowControlExampleUITests;
+			productName = SNFlowControlExampleUITests;
+			productReference = CE5AE21C2DC927F100E89E7F /* SNFlowControlExampleUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CE5AE1F42DC927F000E89E7F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1620;
+				LastUpgradeCheck = 1620;
+				TargetAttributes = {
+					CE5AE1FB2DC927F000E89E7F = {
+						CreatedOnToolsVersion = 16.2;
+					};
+					CE5AE2112DC927F100E89E7F = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = CE5AE1FB2DC927F000E89E7F;
+					};
+					CE5AE21B2DC927F100E89E7F = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = CE5AE1FB2DC927F000E89E7F;
+					};
+				};
+			};
+			buildConfigurationList = CE5AE1F72DC927F000E89E7F /* Build configuration list for PBXProject "SNFlowControlExample" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CE5AE1F32DC927F000E89E7F;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = CE5AE1FD2DC927F000E89E7F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CE5AE1FB2DC927F000E89E7F /* SNFlowControlExample */,
+				CE5AE2112DC927F100E89E7F /* SNFlowControlExampleTests */,
+				CE5AE21B2DC927F100E89E7F /* SNFlowControlExampleUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CE5AE1FA2DC927F000E89E7F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE5AE2102DC927F100E89E7F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE5AE21A2DC927F100E89E7F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2263E0D29B6553A172D6BE4F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SNFlowControlExample-SNFlowControlExampleUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6194B38B326C0D363A920E5D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SNFlowControlExample/Pods-SNFlowControlExample-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SNFlowControlExample/Pods-SNFlowControlExample-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SNFlowControlExample/Pods-SNFlowControlExample-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6DDC10C85C16C6566078BDAD /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SNFlowControlExampleTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C6504FCBD393F5E73831A528 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SNFlowControlExample-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E54A3A0174E2BA0BEBF02252 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SNFlowControlExample-SNFlowControlExampleUITests/Pods-SNFlowControlExample-SNFlowControlExampleUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SNFlowControlExample-SNFlowControlExampleUITests/Pods-SNFlowControlExample-SNFlowControlExampleUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SNFlowControlExample-SNFlowControlExampleUITests/Pods-SNFlowControlExample-SNFlowControlExampleUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CE5AE1F82DC927F000E89E7F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE5AE20E2DC927F100E89E7F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE5AE2182DC927F100E89E7F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CE5AE2142DC927F100E89E7F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CE5AE1FB2DC927F000E89E7F /* SNFlowControlExample */;
+			targetProxy = CE5AE2132DC927F100E89E7F /* PBXContainerItemProxy */;
+		};
+		CE5AE21E2DC927F100E89E7F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CE5AE1FB2DC927F000E89E7F /* SNFlowControlExample */;
+			targetProxy = CE5AE21D2DC927F100E89E7F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		CE5AE2262DC927F100E89E7F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BA730294882DE52A4C9A0F56 /* Pods-SNFlowControlExample.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SNFlowControlExample/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stevenpho.SNFlowControlExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CE5AE2272DC927F100E89E7F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EA57653D0DFB75C49080D92D /* Pods-SNFlowControlExample.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SNFlowControlExample/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stevenpho.SNFlowControlExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		CE5AE2282DC927F100E89E7F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		CE5AE2292DC927F100E89E7F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CE5AE22B2DC927F100E89E7F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6F5F8C274CBF998A02573890 /* Pods-SNFlowControlExampleTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stevenpho.SNFlowControlExampleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SNFlowControlExample.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SNFlowControlExample";
+			};
+			name = Debug;
+		};
+		CE5AE22C2DC927F100E89E7F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8A1CFFD703888CCBB07FB4B1 /* Pods-SNFlowControlExampleTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stevenpho.SNFlowControlExampleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SNFlowControlExample.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SNFlowControlExample";
+			};
+			name = Release;
+		};
+		CE5AE22E2DC927F100E89E7F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 57CB6338CB7E9EFA95168D4D /* Pods-SNFlowControlExample-SNFlowControlExampleUITests.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stevenpho.SNFlowControlExampleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = SNFlowControlExample;
+			};
+			name = Debug;
+		};
+		CE5AE22F2DC927F100E89E7F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 27E45043BE975BBE2EF70920 /* Pods-SNFlowControlExample-SNFlowControlExampleUITests.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stevenpho.SNFlowControlExampleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = SNFlowControlExample;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CE5AE1F72DC927F000E89E7F /* Build configuration list for PBXProject "SNFlowControlExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE5AE2282DC927F100E89E7F /* Debug */,
+				CE5AE2292DC927F100E89E7F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CE5AE2252DC927F100E89E7F /* Build configuration list for PBXNativeTarget "SNFlowControlExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE5AE2262DC927F100E89E7F /* Debug */,
+				CE5AE2272DC927F100E89E7F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CE5AE22A2DC927F100E89E7F /* Build configuration list for PBXNativeTarget "SNFlowControlExampleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE5AE22B2DC927F100E89E7F /* Debug */,
+				CE5AE22C2DC927F100E89E7F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CE5AE22D2DC927F100E89E7F /* Build configuration list for PBXNativeTarget "SNFlowControlExampleUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE5AE22E2DC927F100E89E7F /* Debug */,
+				CE5AE22F2DC927F100E89E7F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CE5AE1F42DC927F000E89E7F /* Project object */;
+}

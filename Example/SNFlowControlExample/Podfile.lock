@@ -1,0 +1,16 @@
+PODS:
+  - SNFlowControl (1.0.6)
+
+DEPENDENCIES:
+  - SNFlowControl
+
+SPEC REPOS:
+  trunk:
+    - SNFlowControl
+
+SPEC CHECKSUMS:
+  SNFlowControl: cc6471c7d8d7a7858c227861e5f8d931b8e61df8
+
+PODFILE CHECKSUM: 67da93d2fd4e1728642d44c48d94128edae1b002
+
+COCOAPODS: 1.16.2
