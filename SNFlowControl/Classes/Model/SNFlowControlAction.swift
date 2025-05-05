@@ -7,10 +7,10 @@
 import Foundation
 
 extension SNFlowControl {
-    typealias FinishedBlock = () -> Void
-    typealias StepBlock = (@escaping(_ actionContext: ActionStyle) -> Void) -> Void
-    typealias ThenBlock = () -> Void
-    typealias IfBlock = () -> Bool
+    public typealias FinishedBlock = () -> Void
+    public typealias StepBlock = (@escaping(_ actionContext: ActionStyle) -> Void) -> Void
+    public typealias ThenBlock = () -> Void
+    public typealias IfBlock = () -> Bool
     
     public class Action {
         let action: StepBlock
