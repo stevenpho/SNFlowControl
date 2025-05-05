@@ -11,26 +11,27 @@ extension SNFlowControl {
     typealias StepBlock = (@escaping(_ actionContext: ActionStyle) -> Void) -> Void
     typealias ThenBlock = () -> Void
     typealias IfBlock = () -> Bool
+    
     public class Action {
         let action: StepBlock
-        init(action: @escaping StepBlock) {
+        public init(action: @escaping StepBlock) {
             self.action = action
         }
     }
     
-    enum ActionStyle: Equatable {
+    public enum ActionStyle: Equatable {
         case onNext
         case onStop
         case onFinished
     }
     
-    enum QueueStyle: Equatable {
+    public enum QueueStyle: Equatable {
         case main(createStyle: QueueCreateStyle)
         case global(createStyle: QueueCreateStyle)
         case none
     }
     
-    enum QueueCreateStyle: Equatable {
+    public enum QueueCreateStyle: Equatable {
         /// 建立新的async queue
         case new
         /// 沿用當前同個queue 如果不是目標的queue style會檢查來決定要不要建立新的queue
@@ -41,7 +42,7 @@ extension SNFlowControl {
 // MARK: SNFlowControl Action Flow
 extension SNFlowControl.Action {
     
-    static func `if`(onQueue: SNFlowControl.QueueStyle = .none, condition: @escaping SNFlowControl.IfBlock) -> SNFlowControl.Action{
+    public static func `if`(onQueue: SNFlowControl.QueueStyle = .none, condition: @escaping SNFlowControl.IfBlock) -> SNFlowControl.Action{
         return SNFlowControl.Action { actionStyle in
             switch condition() {
             case true:
@@ -52,7 +53,7 @@ extension SNFlowControl.Action {
         }
     }
     
-    static func then(onQueue: SNFlowControl.QueueStyle = .none, action: @escaping SNFlowControl.ThenBlock) -> SNFlowControl.Action{
+    public static func then(onQueue: SNFlowControl.QueueStyle = .none, action: @escaping SNFlowControl.ThenBlock) -> SNFlowControl.Action{
         return SNFlowControl.Action { actionStyle in
             let doAction = {
                 action()
@@ -97,14 +98,14 @@ extension SNFlowControl.Action {
         }
     }
     
-    static func log(_ items: Any...) -> SNFlowControl.Action{
+    public static func log(_ items: Any...) -> SNFlowControl.Action{
         return SNFlowControl.Action { actionStyle in
             print("Log: \(items)")
             actionStyle(.onNext)
         }
     }
     
-    static func delay(onQueue: SNFlowControl.QueueStyle, seconds: TimeInterval) -> SNFlowControl.Action{
+    public static func delay(onQueue: SNFlowControl.QueueStyle, seconds: TimeInterval) -> SNFlowControl.Action{
         return SNFlowControl.Action { actionStyle in
             switch onQueue {
             case .main(let createStyle):

@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "SNFlowControl"
-  spec.version      = "1.0.0"
+  spec.version      = "1.0.3"
   spec.summary      = "A lightweight flow control."
 
   # Swift Version
