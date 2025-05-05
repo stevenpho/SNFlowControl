@@ -27,7 +27,44 @@
 
 ```ruby
 pod 'SNFlowControl'
+```
+```swift
+import SNFlowControl
 
+func example1() {
+    SNFlowControl {
+        SNAction { context in
+            print("step1")
+            context(.onNext)
+        }
+
+        SNAction.log("record")
+
+        SNAction.then(onQueue: .none) {
+            print("do stuff")
+        }
+
+        SNAction.delay(onQueue: .main(createStyle: .none), seconds: 3)
+
+        SNAction.log("after delay 3 seconds")
+
+        SNAction.if {
+            return true
+        }
+
+        SNAction { context in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                context(.onNext)
+            }
+        }
+
+        SNAction.log("wait until async action finished")
+
+    } finished: {
+        print("flow control end")
+    }.start()
+}
+```
 🛠 Supported Platforms
 iOS 11.0+
 
