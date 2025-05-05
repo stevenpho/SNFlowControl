@@ -73,7 +73,7 @@ macOS 10.13+
 Swift 5.0+
 
 ### 📄 License
-MIT License. See LICENSE for details.
+MIT License. See [LICENSE](./LICENSE) for details.
 
 ### 💡 Inspiration
 Inspired by functional reactive programming and SwiftUI DSL.
