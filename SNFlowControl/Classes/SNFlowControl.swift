@@ -7,13 +7,11 @@
 import Foundation
 /// SNFlowControl
 ///
-/// EN:
 /// A lightweight chain-based flow controller inspired by SwiftUI's DSL style.
 /// You can compose multiple synchronous or asynchronous actions using builder syntax,
 /// and control flow with `.onNext`, `.onStop`, or `.onFinished`.
 /// Final action triggers the `finished` callback.
 ///
-/// ZH:
 /// 一個輕量的鏈式流程控制器，靈感來自 SwiftUI 的 DSL 語法風格。
 /// 可透過 builder 語法組合多個同步或非同步動作，
 /// 並透過 `.onNext`、`.onStop`、`.onFinished` 控制流程前進、停止或結束。

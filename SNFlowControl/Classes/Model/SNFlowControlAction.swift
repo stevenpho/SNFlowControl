@@ -22,7 +22,7 @@ extension SNFlowControl {
     /// Represents a single step in the flow.
     /// 表示流程中的單一步驟
     public class Action {
-        let action: StepBlock
+        public let action: StepBlock
         public init(action: @escaping StepBlock) {
             self.action = action
         }
