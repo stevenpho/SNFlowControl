@@ -58,9 +58,12 @@ extension SNFlowControl {
 
 // MARK: SNFlowControl Action Flow 主要 DSL 工具函式
 extension SNFlowControl.Action {
+    /// Conditional block
+    /// - If `condition` is true, the flow continues to the next step;
+    ///   if false, the flow is interrupted.
     /// 條件判斷區塊
-    /// - 如果為 true 則繼續下一步，false 則中斷流程
-    public static func `if`(onQueue: SNFlowControl.QueueStyle = .none, condition: @escaping SNFlowControl.IfBlock) -> SNFlowControl.Action{
+    /// - 如果為 condition 為 true 則繼續下一步，false 則中斷流程
+    public static func ifStop(onQueue: SNFlowControl.QueueStyle = .none, condition: @escaping SNFlowControl.IfBlock) -> SNFlowControl.Action{
         return SNFlowControl.Action { actionStyle in
             switch condition() {
             case true:
@@ -70,6 +73,48 @@ extension SNFlowControl.Action {
             }
         }
     }
+    /// Conditional block
+    /// - If `condition` is true, the action will be executed;
+    ///   if false, it will not be executed.
+    /// 條件判斷區塊
+    /// - 如果 condition 為 true 則執行Action，false 不執行
+    static func ifThen(onQueue: SNFlowChain.QueueStyle = .none, condition: @escaping SNFlowChain.IfBlock, action: @escaping SNFlowChain.ThenBlock) -> SNFlowChain.Action{
+        return SNFlowChain.Action { actionStyle in
+            let doAction = {
+                if (condition()) {
+                    action()
+                }
+                actionStyle(.onNext)
+            }
+            queueHandle(onQueue: onQueue, action: doAction)
+        }
+    }
+    /// Conditional block
+    /// - If `condition` is true, the IF action will be executed;
+    ///   if false, the ELSE action will be executed.
+    /// 條件判斷區塊
+    /// - 如果 condition 為 true 則執行IF Action，false 執行Else Action
+    static func ifElseThen(
+        onQueue: SNFlowChain.QueueStyle = .none,
+        condition: @escaping SNFlowChain.IfBlock,
+        ifAction: @escaping SNFlowChain.ThenBlock,
+        elseAction: @escaping SNFlowChain.ThenBlock
+    ) -> SNFlowChain.Action{
+        return SNFlowChain.Action { actionStyle in
+            let doAction = {
+                switch condition() {
+                case true:
+                    ifAction()
+                default:
+                    elseAction()
+                }
+                actionStyle(.onNext)
+            }
+            queueHandle(onQueue: onQueue, action: doAction)
+        }
+    }
+    /// Simple step without flow control.
+    /// Allows specifying the execution thread and creation method.
     /// 簡單步驟，不帶流程控制
     /// 可指定執行緒與建立方式
     public static func then(onQueue: SNFlowControl.QueueStyle = .none, action: @escaping SNFlowControl.ThenBlock) -> SNFlowControl.Action{
@@ -78,44 +123,10 @@ extension SNFlowControl.Action {
                 action()
                 actionStyle(.onNext)
             }
-            switch onQueue {
-            case .main(let createStyle):
-                let doMainAction = {
-                    DispatchQueue.main.async {
-                        doAction()
-                    }
-                }
-                switch createStyle {
-                case .new:
-                    doMainAction()
-                case .none:
-                    guard Thread.isMainThread else {
-                        doMainAction()
-                        return
-                    }
-                    doAction()
-                }
-            case .global(let createStyle):
-                let doGlobalAction = {
-                    DispatchQueue.global().async {
-                        doAction()
-                    }
-                }
-                switch createStyle {
-                case .new:
-                    doGlobalAction()
-                case .none:
-                    guard Thread.isGlobalThread else {
-                        doGlobalAction()
-                        return
-                    }
-                    doAction()
-                }
-            case .none:
-                doAction()
-            }
+            queueHandle(onQueue: onQueue, action: doAction)
         }
     }
+    /// Simple step for logging.
     /// 記錄 Log 的簡單步驟
     public static func log(_ items: Any...) -> SNFlowControl.Action{
         return SNFlowControl.Action { actionStyle in
@@ -123,6 +134,8 @@ extension SNFlowControl.Action {
             actionStyle(.onNext)
         }
     }
+    /// Delay for a certain duration before continuing.
+    /// Allows specifying the queue and delay time in seconds.
     /// 延遲一定時間再繼續
     /// 可指定 Queue 與延遲秒數
     public static func delay(onQueue: SNFlowControl.QueueStyle, seconds: TimeInterval) -> SNFlowControl.Action{
@@ -141,4 +154,46 @@ extension SNFlowControl.Action {
             }
         }
     }
+}
+// MARK: Private - Method
+extension SNFlowControl.Action {
+    private static func queueHandle(onQueue: SNFlowChain.QueueStyle, action: @escaping SNFlowChain.FinishedBlock) {
+        switch onQueue {
+        case .main(let createStyle):
+            let doMainAction = {
+                DispatchQueue.main.async {
+                    action()
+                }
+            }
+            switch createStyle {
+            case .new:
+                doMainAction()
+            case .none:
+                guard Thread.isMainThread else {
+                    doMainAction()
+                    return
+                }
+                action()
+            }
+        case .global(let createStyle):
+            let doGlobalAction = {
+                DispatchQueue.global().async {
+                    action()
+                }
+            }
+            switch createStyle {
+            case .new:
+                doGlobalAction()
+            case .none:
+                guard Thread.isGlobalThread else {
+                    doGlobalAction()
+                    return
+                }
+                action()
+            }
+        case .none:
+            action()
+        }
+    }
+
 }
