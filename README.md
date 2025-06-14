@@ -50,7 +50,7 @@ func example1() {
 
         SNAction.log("after delay 3 seconds")
 
-        SNAction.if {
+        SNAction.ifStop {
             return true
         }
 
