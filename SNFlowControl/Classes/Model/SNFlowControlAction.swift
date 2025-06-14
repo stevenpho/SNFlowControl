@@ -78,8 +78,8 @@ extension SNFlowControl.Action {
     ///   if false, it will not be executed.
     /// 條件判斷區塊
     /// - 如果 condition 為 true 則執行Action，false 不執行
-    static func ifThen(onQueue: SNFlowChain.QueueStyle = .none, condition: @escaping SNFlowChain.IfBlock, action: @escaping SNFlowChain.ThenBlock) -> SNFlowChain.Action{
-        return SNFlowChain.Action { actionStyle in
+    static func ifThen(onQueue: SNFlowControl.QueueStyle = .none, condition: @escaping SNFlowControl.IfBlock, action: @escaping SNFlowControl.ThenBlock) -> SNFlowControl.Action{
+        return SNFlowControl.Action { actionStyle in
             let doAction = {
                 if (condition()) {
                     action()
@@ -95,12 +95,12 @@ extension SNFlowControl.Action {
     /// 條件判斷區塊
     /// - 如果 condition 為 true 則執行IF Action，false 執行Else Action
     static func ifElseThen(
-        onQueue: SNFlowChain.QueueStyle = .none,
-        condition: @escaping SNFlowChain.IfBlock,
-        ifAction: @escaping SNFlowChain.ThenBlock,
-        elseAction: @escaping SNFlowChain.ThenBlock
-    ) -> SNFlowChain.Action{
-        return SNFlowChain.Action { actionStyle in
+        onQueue: SNFlowControl.QueueStyle = .none,
+        condition: @escaping SNFlowControl.IfBlock,
+        ifAction: @escaping SNFlowControl.ThenBlock,
+        elseAction: @escaping SNFlowControl.ThenBlock
+    ) -> SNFlowControl.Action{
+        return SNFlowControl.Action { actionStyle in
             let doAction = {
                 switch condition() {
                 case true:
@@ -157,7 +157,7 @@ extension SNFlowControl.Action {
 }
 // MARK: Private - Method
 extension SNFlowControl.Action {
-    private static func queueHandle(onQueue: SNFlowChain.QueueStyle, action: @escaping SNFlowChain.FinishedBlock) {
+    private static func queueHandle(onQueue: SNFlowControl.QueueStyle, action: @escaping SNFlowControl.FinishedBlock) {
         switch onQueue {
         case .main(let createStyle):
             let doMainAction = {
