@@ -39,7 +39,7 @@ class ViewController: UIViewController {
             
             SNAction.log("after delay 3 seconds")
             // if return false make flow finished
-            SNAction.if {
+            SNAction.ifStop {
                 return true
             }
             // async action

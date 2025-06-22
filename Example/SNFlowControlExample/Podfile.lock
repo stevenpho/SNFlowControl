@@ -1,5 +1,5 @@
 PODS:
-  - SNFlowControl (1.0.8)
+  - SNFlowControl (1.1.0)
 
 DEPENDENCIES:
   - SNFlowControl
@@ -9,8 +9,8 @@ SPEC REPOS:
     - SNFlowControl
 
 SPEC CHECKSUMS:
-  SNFlowControl: c45caad7ec24ef86b7687133e0bb834d81004c3d
+  SNFlowControl: 0cd1ad313b12592c020b2b66a55f87fbf14be480
 
 PODFILE CHECKSUM: 67da93d2fd4e1728642d44c48d94128edae1b002
 
-COCOAPODS: 1.16.2
+COCOAPODS: 1.15.2

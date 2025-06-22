@@ -8,23 +8,41 @@ import Foundation
 
 extension SNFlowControl {
     /// Called when the flow completes.
-    /// 流程結束時的回呼
+    /// 流程結束時的呼叫
     public typealias FinishedBlock = () -> Void
+    /// Calls the context to control whether the flow should continue or terminate.
+    /// 呼叫 context 來控制流程是否繼續或終止
+    public typealias ActionContextBlock = (_ actionContext: ActionStyle) -> Void
     /// Core step execution block. You must call context(.onNext / .onStop / .onFinished)
     /// 執行核心邏輯的區塊，必須呼叫 context 來控制流程是否繼續或終止
-    public typealias StepBlock = (@escaping(_ actionContext: ActionStyle) -> Void) -> Void
+    public typealias StepBlock = (@escaping ActionContextBlock) -> Void
     /// A simplified step without flow control callback.
     /// 簡單的步驟邏輯，不需要手動控制流程
     public typealias ThenBlock = () -> Void
     /// Condition block returning Bool
     /// 判斷條件用區塊
     public typealias IfBlock = () -> Bool
+    /// Uses a block to evaluate a condition and returns an enum indicating the outcome.
+    /// 判斷條件用區塊 回傳enum 狀態
+    typealias SwitchThenBlock<T: CaseIterable> = (T) -> Void
+    /// Uses a closure to evaluate a condition, returns an enum to indicate the result,
+    /// and lets you manually control the flow based on that result.
+    /// 判斷條件用區塊 回傳enum 狀態 並手動控制流程
+    typealias SwitchActionBlock<T: CaseIterable> = (T, @escaping ActionContextBlock) -> Void
     /// Represents a single step in the flow.
     /// 表示流程中的單一步驟
     public class Action {
         public let action: StepBlock
         public init(action: @escaping StepBlock) {
             self.action = action
+        }
+        /// trigger action
+        /// 執行 action
+        public func command(actionStyleHandler: ActionContextBlock? = nil) {
+            self.action { context in
+                guard let actionStyleHandler = actionStyleHandler else { return }
+                actionStyleHandler(context)
+            }
         }
     }
     /// Flow control options
@@ -41,7 +59,7 @@ extension SNFlowControl {
         case main(createStyle: QueueCreateStyle)
         /// Background global queue / 背景執行緒
         case global(createStyle: QueueCreateStyle)
-        ///  No queue switching / 不切換 Queue
+        ///  No queue switching, use current queue / 不切換 Queue 沿用當前queue
         case none
     }
     /// Strategy for whether to create a new queue or reuse the current one.
@@ -58,18 +76,55 @@ extension SNFlowControl {
 
 // MARK: SNFlowControl Action Flow 主要 DSL 工具函式
 extension SNFlowControl.Action {
+    /// Perform different actions based on the passed-in enum, the flow continues to the next step
+    /// 根據傳入enum 處理不同action 並直接繼續下一個步驟
+    static func switchThen<T: CaseIterable>(onQueue: SNFlowChain.QueueStyle = .none, state: T, stateAction: @escaping SNFlowChain.SwitchThenBlock<T>) -> SNFlowChain.Action{
+        return SNFlowChain.Action { actionStyle in
+            let doAction = {
+                stateAction(state)
+                actionStyle(.onNext)
+            }
+            queueHandle(onQueue: onQueue, action: doAction)
+        }
+    }
+    /// Handles different actions based on the given enum value,
+    /// and allows custom handling of the completion behavior.
+    /// 根據傳入enum 處理不同action 並可自行決定結束動作
+    static func switchAction<T: CaseIterable>(onQueue: SNFlowChain.QueueStyle = .none, state: T, stateAction: @escaping SNFlowChain.SwitchActionBlock<T>) -> SNFlowChain.Action{
+        return SNFlowChain.Action { actionStyle in
+            let doAction = {
+                stateAction(state, actionStyle)
+            }
+            queueHandle(onQueue: onQueue, action: doAction)
+        }
+    }
     /// Conditional block
     /// - If `condition` is true, the flow continues to the next step;
     ///   if false, the flow is interrupted.
     /// 條件判斷區塊
     /// - 如果為 condition 為 true 則繼續下一步，false 則中斷流程
-    public static func ifStop(onQueue: SNFlowControl.QueueStyle = .none, condition: @escaping SNFlowControl.IfBlock) -> SNFlowControl.Action{
-        return SNFlowControl.Action { actionStyle in
+    static func ifNext(onQueue: SNFlowChain.QueueStyle = .none, condition: @escaping SNFlowChain.IfBlock) -> SNFlowChain.Action{
+        return SNFlowChain.Action { actionStyle in
             switch condition() {
             case true:
                 actionStyle(.onNext)
             case false:
                 actionStyle(.onStop)
+            }
+        }
+    }
+    /// Conditional block
+    /// - If `condition` is true, the flow is interrupted;
+    ///   if false, the flow continues to the next step.
+    /// 條件判斷區塊
+    /// - 如果為 condition 為 true 則中斷流程，false 則繼續下一步
+    public static func ifStop(onQueue: SNFlowControl.QueueStyle = .none, condition: @escaping SNFlowControl.IfBlock) -> SNFlowControl.Action{
+        return SNFlowControl.Action { actionStyle in
+            switch condition() {
+            case true:
+                actionStyle(.onStop)
+            case false:
+                actionStyle(.onNext)
             }
         }
     }

@@ -50,7 +50,7 @@ public class SNFlowControl {
             self.finished?()
             return
         }
-        firstAction.action { actionContext in
+        firstAction.command { actionContext in
             //print(actionContext)
             switch actionContext {
             case .onNext:
