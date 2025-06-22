@@ -78,8 +78,8 @@ extension SNFlowControl {
 extension SNFlowControl.Action {
     /// Perform different actions based on the passed-in enum, the flow continues to the next step
     /// 根據傳入enum 處理不同action 並直接繼續下一個步驟
-    static func switchThen<T: CaseIterable>(onQueue: SNFlowChain.QueueStyle = .none, state: T, stateAction: @escaping SNFlowChain.SwitchThenBlock<T>) -> SNFlowChain.Action{
-        return SNFlowChain.Action { actionStyle in
+    static func switchThen<T: CaseIterable>(onQueue: SNFlowControl.QueueStyle = .none, state: T, stateAction: @escaping SNFlowControl.SwitchThenBlock<T>) -> SNFlowControl.Action{
+        return SNFlowControl.Action { actionStyle in
             let doAction = {
                 stateAction(state)
                 actionStyle(.onNext)
@@ -90,8 +90,8 @@ extension SNFlowControl.Action {
     /// Handles different actions based on the given enum value,
     /// and allows custom handling of the completion behavior.
     /// 根據傳入enum 處理不同action 並可自行決定結束動作
-    static func switchAction<T: CaseIterable>(onQueue: SNFlowChain.QueueStyle = .none, state: T, stateAction: @escaping SNFlowChain.SwitchActionBlock<T>) -> SNFlowChain.Action{
-        return SNFlowChain.Action { actionStyle in
+    static func switchAction<T: CaseIterable>(onQueue: SNFlowControl.QueueStyle = .none, state: T, stateAction: @escaping SNFlowControl.SwitchActionBlock<T>) -> SNFlowControl.Action{
+        return SNFlowControl.Action { actionStyle in
             let doAction = {
                 stateAction(state, actionStyle)
             }
@@ -103,8 +103,8 @@ extension SNFlowControl.Action {
     ///   if false, the flow is interrupted.
     /// 條件判斷區塊
     /// - 如果為 condition 為 true 則繼續下一步，false 則中斷流程
-    static func ifNext(onQueue: SNFlowChain.QueueStyle = .none, condition: @escaping SNFlowChain.IfBlock) -> SNFlowChain.Action{
-        return SNFlowChain.Action { actionStyle in
+    static func ifNext(onQueue: SNFlowControl.QueueStyle = .none, condition: @escaping SNFlowControl.IfBlock) -> SNFlowControl.Action{
+        return SNFlowControl.Action { actionStyle in
             switch condition() {
             case true:
                 actionStyle(.onNext)
