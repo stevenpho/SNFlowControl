@@ -24,11 +24,11 @@ extension SNFlowControl {
     public typealias IfBlock = () -> Bool
     /// Uses a block to evaluate a condition and returns an enum indicating the outcome.
     /// 判斷條件用區塊 回傳enum 狀態
-    typealias SwitchThenBlock<T: CaseIterable> = (T) -> Void
+    public typealias SwitchThenBlock<T: CaseIterable> = (T) -> Void
     /// Uses a closure to evaluate a condition, returns an enum to indicate the result,
     /// and lets you manually control the flow based on that result.
     /// 判斷條件用區塊 回傳enum 狀態 並手動控制流程
-    typealias SwitchActionBlock<T: CaseIterable> = (T, @escaping ActionContextBlock) -> Void
+    public typealias SwitchActionBlock<T: CaseIterable> = (T, @escaping ActionContextBlock) -> Void
     /// Represents a single step in the flow.
     /// 表示流程中的單一步驟
     public class Action {
@@ -78,7 +78,7 @@ extension SNFlowControl {
 extension SNFlowControl.Action {
     /// Perform different actions based on the passed-in enum, the flow continues to the next step
     /// 根據傳入enum 處理不同action 並直接繼續下一個步驟
-    static func switchThen<T: CaseIterable>(onQueue: SNFlowControl.QueueStyle = .none, state: T, stateAction: @escaping SNFlowControl.SwitchThenBlock<T>) -> SNFlowControl.Action{
+    public static func switchThen<T: CaseIterable>(onQueue: SNFlowControl.QueueStyle = .none, state: T, stateAction: @escaping SNFlowControl.SwitchThenBlock<T>) -> SNFlowControl.Action{
         return SNFlowControl.Action { actionStyle in
             let doAction = {
                 stateAction(state)
@@ -90,7 +90,7 @@ extension SNFlowControl.Action {
     /// Handles different actions based on the given enum value,
     /// and allows custom handling of the completion behavior.
     /// 根據傳入enum 處理不同action 並可自行決定結束動作
-    static func switchAction<T: CaseIterable>(onQueue: SNFlowControl.QueueStyle = .none, state: T, stateAction: @escaping SNFlowControl.SwitchActionBlock<T>) -> SNFlowControl.Action{
+    public static func switchAction<T: CaseIterable>(onQueue: SNFlowControl.QueueStyle = .none, state: T, stateAction: @escaping SNFlowControl.SwitchActionBlock<T>) -> SNFlowControl.Action{
         return SNFlowControl.Action { actionStyle in
             let doAction = {
                 stateAction(state, actionStyle)
@@ -103,7 +103,7 @@ extension SNFlowControl.Action {
     ///   if false, the flow is interrupted.
     /// 條件判斷區塊
     /// - 如果為 condition 為 true 則繼續下一步，false 則中斷流程
-    static func ifNext(onQueue: SNFlowControl.QueueStyle = .none, condition: @escaping SNFlowControl.IfBlock) -> SNFlowControl.Action{
+    public static func ifNext(onQueue: SNFlowControl.QueueStyle = .none, condition: @escaping SNFlowControl.IfBlock) -> SNFlowControl.Action{
         return SNFlowControl.Action { actionStyle in
             switch condition() {
             case true:
@@ -133,7 +133,7 @@ extension SNFlowControl.Action {
     ///   if false, it will not be executed.
     /// 條件判斷區塊
     /// - 如果 condition 為 true 則執行Action，false 不執行
-    static func ifThen(onQueue: SNFlowControl.QueueStyle = .none, condition: @escaping SNFlowControl.IfBlock, action: @escaping SNFlowControl.ThenBlock) -> SNFlowControl.Action{
+    public static func ifThen(onQueue: SNFlowControl.QueueStyle = .none, condition: @escaping SNFlowControl.IfBlock, action: @escaping SNFlowControl.ThenBlock) -> SNFlowControl.Action{
         return SNFlowControl.Action { actionStyle in
             let doAction = {
                 if (condition()) {
@@ -149,7 +149,7 @@ extension SNFlowControl.Action {
     ///   if false, the ELSE action will be executed.
     /// 條件判斷區塊
     /// - 如果 condition 為 true 則執行IF Action，false 執行Else Action
-    static func ifElseThen(
+    public static func ifElseThen(
         onQueue: SNFlowControl.QueueStyle = .none,
         condition: @escaping SNFlowControl.IfBlock,
         ifAction: @escaping SNFlowControl.ThenBlock,

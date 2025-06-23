@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "SNFlowControl"
-  s.version      = "1.1.2"
+  s.version      = "1.2.0"
   s.summary      = "A lightweight flow control."
   s.description  = "A lightweight flow control make code readability"
   s.homepage     = "https://github.com/stevenpho/SNFlowControl"
