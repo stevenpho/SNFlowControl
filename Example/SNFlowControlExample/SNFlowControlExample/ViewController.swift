@@ -34,7 +34,7 @@ class ViewController: UIViewController {
             SNAction.then(onQueue: .none) {
                 print("do stuff")
             }
-            // concurrent async
+            // concurrent async 
 //            SNAction.asyncAction { actionCompletion in
 //                print("start async \n")
 //                DispatchQueue.global().asyncAfter(deadline: .now() + 2) {
