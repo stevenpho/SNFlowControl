@@ -34,7 +34,16 @@ class ViewController: UIViewController {
             SNAction.then(onQueue: .none) {
                 print("do stuff")
             }
-            
+            // concurrent async
+//            SNAction.asyncAction { actionCompletion in
+//                print("start async \n")
+//                DispatchQueue.global().asyncAfter(deadline: .now() + 2) {
+//                    print("finish async \n")
+//                    actionCompletion(.onNext)
+//                }
+//            }
+            // wait asyncAction finished
+            //SNAction.waitUntilAllAsyncTaskFinished()
             SNAction.delay(onQueue: .main(createStyle: .none), seconds: 3)
             
             SNAction.log("after delay 3 seconds")
