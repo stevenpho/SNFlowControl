@@ -23,6 +23,9 @@ public class SNFlowControl {
     /// Called when all actions finish or the flow is stopped.
     /// 所有流程執行完畢或中斷時會呼叫的完成區塊
     let finished: FinishedBlock?
+    /// Called when change to next action
+    /// 準備執行下一個 action 時的 index
+    let progressActionIndexChange: ((_ actionIndex: Int) -> Void)?
     /// Current executing index
     /// 當前執行到的動作索引
     public var currentIndex = 0
@@ -36,19 +39,23 @@ public class SNFlowControl {
     /// finished完成時在哪個queue執行
     public var finishedQueueStyle: SNFlowControl.QueueStyle = .none
     lazy var isFinished: Bool = false
-    lazy var progressAsyncTasks = ""
+    lazy var progressAsyncTasksCount: Int = 0
     lazy var blockIndex: Int? = nil
     /// Initialize with a fixed array of actions
     /// 使用動作陣列初始化
     /// - Parameters:
     ///   - actios: Actions to execute
+    ///   - progressActionIndexChange: progress action index
     ///   - receiveFinishOnQueue: specifies the queue on which the `finished` block will be executed
+    ///   - finished: Called when all actions finish or the flow is stopped.
     public init(
         actios: [Action],
+        progressActionIndexChange: ((_ actionIndex: Int) -> Void)? = nil,
         receiveFinishOnQueue: SNFlowControl.QueueStyle = .none,
         finished: FinishedBlock? = nil
     ) {
         self.actios = actios
+        self.progressActionIndexChange = progressActionIndexChange
         self.finishedQueueStyle = receiveFinishOnQueue
         self.finished = finished
     }
@@ -56,12 +63,17 @@ public class SNFlowControl {
     /// 使用DSL初始化
     /// - Parameters:
     ///   - actios: Actions to execute
+    ///   - progressActionIndexChange: progress action index
+    ///   - receiveFinishOnQueue: specifies the queue on which the `finished` block will be executed
+    ///   - finished: Called when all actions finish or the flow is stopped.
     public init(
         @SNFlowControlActionBuilder builderActios: () -> [Action],
+        progressActionIndexChange: ((_ actionIndex: Int) -> Void)? = nil,
         receiveFinishOnQueue: SNFlowControl.QueueStyle = .none,
         finished: FinishedBlock? = nil
     ) {
         self.actios = builderActios()
+        self.progressActionIndexChange = progressActionIndexChange
         self.finishedQueueStyle = receiveFinishOnQueue
         self.finished = finished
     }
@@ -91,17 +103,16 @@ public class SNFlowControl {
         }
         
         func hasAsync() -> Bool {
-            return (!self.progressAsyncTasks.isEmpty && !self.progressAsyncTasks.split(separator: ",").isEmpty)
+            return self.progressAsyncTasksCount > 0
         }
         
         func checkFinishAction(style: SNFlowControl.ActionStyle?) {
-            if !hasAsync() && self.currentIndex >= self.actios.count - 1 {
+            if !hasAsync() && !self.isFinished {
                 finishAction(style: style)
             }
         }
         
         func next() {
-            self.currentIndex = targetIndex + 1
             self.execute(targetIndex: targetIndex + 1)
         }
         
@@ -114,18 +125,18 @@ public class SNFlowControl {
             checkFinishAction(style: .onFinished)
             return
         }
+        self.currentIndex = targetIndex
+        self.progressActionIndexChange?(targetIndex)
         self.isProgressing = true
         self.currentID = firstAction.id ?? "\(self.currentID)"
+        
         if let asyncAction = firstAction as? AsyncAction {
-            self.progressAsyncTasks += "\(targetIndex),"
+            self.progressAsyncTasksCount += 1
             asyncAction.asyncAction { actionContext in
+                // 把自己移除隊列
+                self.progressAsyncTasksCount -= 1
                 switch actionContext {
                 case .onNext:
-                    // 把自己移除隊列
-                    self.progressAsyncTasks = self.progressAsyncTasks
-                        .split(separator: ",")
-                        .filter { $0 != "\(targetIndex)" }
-                        .joined(separator: ",")
                     // 沒有等待中的async 結束
                     if !hasAsync() {
                         // 確認是否是有wait until before task完成
@@ -139,6 +150,7 @@ public class SNFlowControl {
                     }
                     return
                 case .onStop, .onFinished:
+                    guard !self.isFinished else {return}
                     finishAction(style: actionContext)
                     return
                 }
@@ -164,7 +176,8 @@ public class SNFlowControl {
                 next()
                 return
             case .onStop, .onFinished:
-                checkFinishAction(style: actionContext)
+                guard !self.isFinished else {return}
+                finishAction(style: actionContext)
                 return
             }
         }
