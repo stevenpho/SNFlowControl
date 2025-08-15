@@ -35,27 +35,51 @@ extension SNFlowControl {
         public var id: String? = nil
         public var index: Int? = nil
         public let action: StepBlock
-        public init(id: String? = nil, index: Int? = nil,action: @escaping StepBlock) {
+        public let onQueue: QueueStyle
+        public init(
+            id: String? = nil,
+            index: Int? = nil,
+            onQueue: QueueStyle = .none,
+            action: @escaping StepBlock
+        ) {
             self.id = id
             self.index = index
+            self.onQueue = onQueue
             self.action = action
         }
         /// trigger action
         /// 執行 action
         public func command(actionStyleHandler: ActionContextBlock? = nil) {
-            self.action { context in
-                guard let actionStyleHandler = actionStyleHandler else { return }
-                actionStyleHandler(context)
-            }
+            SNFlowControl.Action.queueHandle(onQueue: self.onQueue, action: {
+                self.action { context in
+                    guard let actionStyleHandler = actionStyleHandler else { return }
+                    actionStyleHandler(context)
+                }
+            })
         }
     }
     
     public class AsyncAction : Action {
         public let isAsync: Bool = true
         public let asyncAction: StepBlock
-        init(id: String? = nil, index: Int? = nil, asyncAction: @escaping StepBlock, action: @escaping StepBlock) {
+        /// AsyncAction
+        /// - Parameters:
+        ///   - id: Async Action id
+        ///   - index: Async Action index
+        ///   - onQueue: Async Action use which queue
+        ///   - asyncAction: async block
+        init(
+            id: String? = nil,
+            index: Int? = nil,
+            onQueue: QueueStyle = .none,
+            asyncAction: @escaping StepBlock
+        ) {
             self.asyncAction = asyncAction
-            super.init(id: id, index: index, action: action)
+            //   - action: internal block for continue next action but async action is waiting complete
+            // 先讓原本flow流程繼續不阻塞
+            super.init(id: id, index: index, onQueue: onQueue) { context in
+                context(.onNext)
+            }
         }
         /// trigger action
         /// 執行 action
@@ -81,7 +105,7 @@ extension SNFlowControl {
         case global(createStyle: QueueCreateStyle)
         /// Custom queue / 自己的queue
         case custom(queue: DispatchQueue)
-        ///  No queue switching, use current queue / 不切換 Queue 沿用當前queue
+        ///  No queue switching, use current serial background queue / 不切換 Queue 沿用當前serial background queue
         case none
     }
     /// Strategy for whether to create a new queue or reuse the current one.
@@ -98,8 +122,8 @@ extension SNFlowControl {
 
 // MARK: SNFlowControl Action Flow 主要 DSL 工具函式
 extension SNFlowControl.Action {
-    /// Perform different actions based on the passed-in enum, the flow continues to the next step
-    /// 根據傳入enum 處理不同action 並直接繼續下一個步驟
+    /// Perform different actions based on the passed-in enum, the flow continues to the next step  default is background thread
+    /// 根據傳入enum 處理不同action 並直接繼續下一個步驟 預設背景queue
     public static func switchThen<T: CaseIterable>(
         id: String? = nil,
         index: Int? = nil,
@@ -116,8 +140,8 @@ extension SNFlowControl.Action {
         }
     }
     /// Handles different actions based on the given enum value,
-    /// and allows custom handling of the completion behavior.
-    /// 根據傳入enum 處理不同action 並可自行決定結束動作
+    /// and allows custom handling of the completion behavior. default is background thread
+    /// 根據傳入enum 處理不同action 並可自行決定結束動作 預設背景queue
     public static func switchAction<T: CaseIterable>(
         id: String? = nil,
         index: Int? = nil,
@@ -134,9 +158,9 @@ extension SNFlowControl.Action {
     }
     /// Conditional block
     /// - If `condition` is true, the flow continues to the next step;
-    ///   if false, the flow is interrupted.
+    ///   if false, the flow is interrupted. default is background thread
     /// 條件判斷區塊
-    /// - 如果為 condition 為 true 則繼續下一步，false 則中斷流程
+    /// - 如果為 condition 為 true 則繼續下一步，false 則中斷流程 預設背景queue
     public static func ifNext(
         id: String? = nil,
         index: Int? = nil,
@@ -154,9 +178,9 @@ extension SNFlowControl.Action {
     }
     /// Conditional block
     /// - If `condition` is true, the flow is interrupted;
-    ///   if false, the flow continues to the next step.
+    ///   if false, the flow continues to the next step. default is background thread
     /// 條件判斷區塊
-    /// - 如果為 condition 為 true 則中斷流程，false 則繼續下一步
+    /// - 如果為 condition 為 true 則中斷流程，false 則繼續下一步 預設背景queue
     public static func ifStop(
         id: String? = nil,
         index: Int? = nil,
@@ -174,9 +198,9 @@ extension SNFlowControl.Action {
     }
     /// Conditional block
     /// - If `condition` is true, the action will be executed;
-    ///   if false, it will not be executed.
+    ///   if false, it will not be executed. default is background thread
     /// 條件判斷區塊
-    /// - 如果 condition 為 true 則執行Action，false 不執行
+    /// - 如果 condition 為 true 則執行Action，false 不執行 預設背景queue
     public static func ifThen(
         id: String? = nil,
         index: Int? = nil,
@@ -196,9 +220,9 @@ extension SNFlowControl.Action {
     }
     /// Conditional block
     /// - If `condition` is true, the IF action will be executed;
-    ///   if false, the ELSE action will be executed.
+    ///   if false, the ELSE action will be executed.  default is background thread
     /// 條件判斷區塊
-    /// - 如果 condition 為 true 則執行IF Action，false 執行Else Action
+    /// - 如果 condition 為 true 則執行IF Action，false 執行Else Action 預設背景queue
     public static func ifElseThen(
         id: String? = nil,
         index: Int? = nil,
@@ -221,9 +245,9 @@ extension SNFlowControl.Action {
         }
     }
     /// Simple step without flow control.
-    /// Allows specifying the execution thread and creation method.
+    /// Allows specifying the execution thread and creation method. default is background thread
     /// 簡單步驟，不帶流程控制
-    /// 可指定執行緒與建立方式
+    /// 可指定執行緒與建立方式 預設背景queue
     public static func then(
         id: String? = nil,
         index: Int? = nil,
@@ -251,9 +275,9 @@ extension SNFlowControl.Action {
         }
     }
     /// Delay for a certain duration before continuing.
-    /// Allows specifying the queue and delay time in seconds.
+    /// Allows specifying the queue and delay time in seconds. default is background thread
     /// 延遲一定時間再繼續
-    /// 可指定 Queue 與延遲秒數
+    /// 可指定 Queue 與延遲秒數 預設背景queue
     public static func delay(
         id: String? = nil,
         index: Int? = nil,
@@ -279,21 +303,28 @@ extension SNFlowControl.Action {
             }
         }
     }
-    /// async action
-    /// 非同步執行
+    /// async action  default is background thread
+    /// 非同步執行 預設背景queue
     public static func asyncAction(
+        logItems: Any...,
         id: String? = nil,
         index: Int? = nil,
         onQueue: SNFlowControl.QueueStyle = .none,
         action: @escaping SNFlowControl.StepBlock
     ) -> SNFlowControl.AsyncAction{
-        return SNFlowControl.AsyncAction(id: id, index: index, asyncAction: action, action: { actionStyle in
-            let doAction = {
-                // 給Builer使用繼續後面流程
-                actionStyle(.onNext)
-            }
-            queueHandle(onQueue: onQueue, action: doAction)
-        })
+        return SNFlowControl.AsyncAction(
+            id: id,
+            index: index,
+            asyncAction: { actionBlock in
+                if (!logItems.isEmpty) {
+                    print("SNLog: \(logItems)")
+                }
+                queueHandle(onQueue: onQueue) {
+                    action { actionContext in
+                        actionBlock(actionContext)
+                    }
+                }
+            })
     }
     /// wait Unit before all  Async Task Finished
     /// 等到前面全部非同步完成才繼續後面的

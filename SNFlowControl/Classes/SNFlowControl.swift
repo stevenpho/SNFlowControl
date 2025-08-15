@@ -19,13 +19,17 @@ import Foundation
 public class SNFlowControl {
     /// The array of actions to be executed in sequence.
     /// 要依序執行的動作陣列
-    let actios: [Action]
+    private let actios: [Action]
     /// Called when all actions finish or the flow is stopped.
     /// 所有流程執行完畢或中斷時會呼叫的完成區塊
-    let finished: FinishedBlock?
+    private let finished: FinishedBlock?
     /// Called when change to next action
     /// 準備執行下一個 action 時的 index
-    let progressActionIndexChange: ((_ actionIndex: Int) -> Void)?
+    private let progressActionIndexChange: ((_ actionIndex: Int) -> Void)?
+    private let serialQueue = DispatchQueue(label: "com.snflowcontrol.flow.serialQueue")
+    /// 當前總共有幾個非同步action
+    /// how many async action for now
+    private var progressAsyncTasksCount: Int = 0
     /// Current executing index
     /// 當前執行到的動作索引
     public var currentIndex = 0
@@ -38,9 +42,12 @@ public class SNFlowControl {
     /// specifies the queue on which the `finished` block will be executed
     /// finished完成時在哪個queue執行
     public var finishedQueueStyle: SNFlowControl.QueueStyle = .none
-    lazy var isFinished: Bool = false
-    lazy var progressAsyncTasksCount: Int = 0
-    lazy var blockIndex: Int? = nil
+    /// flow action finished all actions
+    /// 已經完成全部action
+    public var isFinished: Bool = false
+    /// which index will block until async task finished
+    /// 當前執行到哪一個index是要等到非同步全部都完成的
+    public var blockIndex: Int? = nil
     /// Initialize with a fixed array of actions
     /// 使用動作陣列初始化
     /// - Parameters:
@@ -80,25 +87,36 @@ public class SNFlowControl {
     
     deinit {
         //print("deinit")
+        // TODO: add interrupt call
+//        if !self.isFinished {
+//            self.finished?(nil)
+//        }
+//        if !self.isFinished && self.finished != nil {
+//            let finishedBlock = self.finished
+//            let queueStyle = self.finishedQueueStyle
+//            SNFlowControl.Action.queueHandle(onQueue: queueStyle) {
+//                finishedBlock?(nil)
+//            }
+//        }
     }
     
     /// Start the flow. Will execute actions in order.
     /// 啟動流程，依序執行所有動作
     @discardableResult
     public func start() -> Self {
-        //print("start action: \(self.index)")
-        self.execute(targetIndex: self.currentIndex)
+        self.serialQueue.async {
+            self.execute(targetIndex: self.currentIndex)
+        }
         return self
     }
     /// Will execute actions in order.
     /// 依序執行所有動作
     private func execute(targetIndex: Int) {
-        //print("start action: \(self.index)")
         func finishAction(style: SNFlowControl.ActionStyle?) {
             SNFlowControl.Action.queueHandle(onQueue: self.finishedQueueStyle) {
-                self.finished?(style)
                 self.isFinished = true
                 self.isProgressing = false
+                self.finished?(style)
             }
         }
         
@@ -113,12 +131,16 @@ public class SNFlowControl {
         }
         
         func next() {
-            self.execute(targetIndex: targetIndex + 1)
+            self.serialQueue.async {
+                self.execute(targetIndex: targetIndex + 1)
+            }
         }
         
         func blockToContinue(targetIndex: Int) {
-            self.blockIndex = nil
-            self.execute(targetIndex: targetIndex)
+            self.serialQueue.async {
+                self.blockIndex = nil
+                self.execute(targetIndex: targetIndex)
+            }
         }
         
         guard let firstAction = self.actios[safe: targetIndex] else {
@@ -133,26 +155,29 @@ public class SNFlowControl {
         if let asyncAction = firstAction as? AsyncAction {
             self.progressAsyncTasksCount += 1
             asyncAction.asyncAction { actionContext in
-                // 把自己移除隊列
-                self.progressAsyncTasksCount -= 1
-                switch actionContext {
-                case .onNext:
-                    // 沒有等待中的async 結束
-                    if !hasAsync() {
-                        // 確認是否是有wait until before task完成
-                        if let blockIndex = self.blockIndex {
-                            blockToContinue(targetIndex: blockIndex + 1)
+                self.serialQueue.async {
+                    // 把自己移除隊列
+                    self.progressAsyncTasksCount -= 1
+                    switch actionContext {
+                    case .onNext:
+                        // 沒有等待中的async 結束
+                        if !hasAsync() {
+                            // 確認是否是有wait until before task完成
+                            if let blockIndex = self.blockIndex {
+                                blockToContinue(targetIndex: blockIndex + 1)
+                                return
+                            }
+                            guard self.currentIndex == self.actios.count - 1 else {return}
+                            // 沒有使用 wait until before task 表示執行完畢
+                            checkFinishAction(style: .onFinished)
                             return
                         }
-                        // 沒有使用 wait until before task 表示執行完畢
-                        checkFinishAction(style: .onFinished)
+                        return
+                    case .onStop, .onFinished:
+                        guard !self.isFinished else {return}
+                        finishAction(style: actionContext)
                         return
                     }
-                    return
-                case .onStop, .onFinished:
-                    guard !self.isFinished else {return}
-                    finishAction(style: actionContext)
-                    return
                 }
             }
             next()
@@ -160,7 +185,6 @@ public class SNFlowControl {
         }
         
         if firstAction is BlockAction {
-            //print("BlockAction: \(targetIndex)")
             if (hasAsync()) {
                 self.blockIndex = targetIndex
             } else {
@@ -170,15 +194,16 @@ public class SNFlowControl {
         }
         
         firstAction.command { actionContext in
-            //print(actionContext)
-            switch actionContext {
-            case .onNext:
-                next()
-                return
-            case .onStop, .onFinished:
-                guard !self.isFinished else {return}
-                finishAction(style: actionContext)
-                return
+            self.serialQueue.async {
+                switch actionContext {
+                case .onNext:
+                    next()
+                    return
+                case .onStop, .onFinished:
+                    guard !self.isFinished else {return}
+                    finishAction(style: actionContext)
+                    return
+                }
             }
         }
     }
