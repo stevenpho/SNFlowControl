@@ -26,7 +26,7 @@ class ViewController: UIViewController {
         SNFlowControl {
             SNAction { context in
                 print("step1")
-                context(.onNext)
+                context(.onNext(nil))
             }
             
             SNAction.log("record")
@@ -54,7 +54,7 @@ class ViewController: UIViewController {
             // async action
             SNAction { context in
                 DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                    context(.onNext)
+                    context(.onNext(nil))
                 }
             }
             

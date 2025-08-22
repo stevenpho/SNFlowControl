@@ -22,13 +22,18 @@ extension SNFlowControl {
     /// Condition block returning Bool
     /// 判斷條件用區塊
     public typealias IfBlock = () -> Bool
+    /// 隨時呼叫判斷條件用區塊
+    public typealias IfAsyncBlock = ((Bool) -> Void) -> Void
+    /// 巢狀呼叫判斷條件用區塊
+    public typealias NestedThenBlock = (ThenBlock?) -> Void
+    public typealias LogBlock = () -> Any
     /// Uses a block to evaluate a condition and returns an enum indicating the outcome.
     /// 判斷條件用區塊 回傳enum 狀態
-    public typealias SwitchThenBlock<T: CaseIterable> = (T) -> Void
+    public typealias SwitchThenBlock<T> = (T,NestedThenBlock?) -> Void
     /// Uses a closure to evaluate a condition, returns an enum to indicate the result,
     /// and lets you manually control the flow based on that result.
     /// 判斷條件用區塊 回傳enum 狀態 並手動控制流程
-    public typealias SwitchActionBlock<T: CaseIterable> = (T, @escaping ActionContextBlock) -> Void
+    public typealias SwitchActionBlock<T> = (T, @escaping ActionContextBlock) -> Void
     /// Represents a single step in the flow.
     /// 表示流程中的單一步驟
     public class Action {
@@ -78,7 +83,7 @@ extension SNFlowControl {
             //   - action: internal block for continue next action but async action is waiting complete
             // 先讓原本flow流程繼續不阻塞
             super.init(id: id, index: index, onQueue: onQueue) { context in
-                context(.onNext)
+                context(.onNext(nil))
             }
         }
         /// trigger action
@@ -92,7 +97,20 @@ extension SNFlowControl {
     /// Flow control options
     /// 控制流程的狀態選項
     public enum ActionStyle: Equatable {
-        case onNext
+        public static func == (lhs: SNFlowControl.ActionStyle, rhs: SNFlowControl.ActionStyle) -> Bool {
+            switch (lhs, rhs) {
+            case (.onNext(_), .onNext(_)):
+                return true
+            case (.onStop, .onStop):
+                return true
+            case (.onFinished, .onFinished):
+                return true
+            default:
+                return false
+            }
+        }
+        /// syncAction:  make sure update output value thread safe
+        case onNext(_ syncAction: ThenBlock?)
         case onStop
         case onFinished
     }
@@ -118,13 +136,23 @@ extension SNFlowControl {
         /// 沿用當前同個queue 如果不是目標的queue style會檢查來決定要不要建立新的queue
         case none
     }
+    /// Strategy for whether to Sync Action
+    /// 決定使用哪個當作同步工具
+    public enum SyncStyle: Equatable {
+        /// Use Lock to sync action
+        /// 使用lock來同步action
+        case lock
+        /// Use GCD serialQueue to sync action
+        /// 使用GCD serialQueue來同步action
+        case serialQueue
+    }
 }
 
 // MARK: SNFlowControl Action Flow 主要 DSL 工具函式
 extension SNFlowControl.Action {
     /// Perform different actions based on the passed-in enum, the flow continues to the next step  default is background thread
     /// 根據傳入enum 處理不同action 並直接繼續下一個步驟 預設背景queue
-    public static func switchThen<T: CaseIterable>(
+    public static func switchThen<T>(
         id: String? = nil,
         index: Int? = nil,
         onQueue: SNFlowControl.QueueStyle = .none,
@@ -133,8 +161,11 @@ extension SNFlowControl.Action {
     ) -> SNFlowControl.Action{
         return SNFlowControl.Action(id: id, index: index) { actionStyle in
             let doAction = {
-                stateAction(state)
-                actionStyle(.onNext)
+                actionStyle(.onNext({
+                    stateAction(state, { action in
+                        action?()
+                    })
+                }))
             }
             queueHandle(onQueue: onQueue, action: doAction)
         }
@@ -142,7 +173,7 @@ extension SNFlowControl.Action {
     /// Handles different actions based on the given enum value,
     /// and allows custom handling of the completion behavior. default is background thread
     /// 根據傳入enum 處理不同action 並可自行決定結束動作 預設背景queue
-    public static func switchAction<T: CaseIterable>(
+    public static func switchAction<T>(
         id: String? = nil,
         index: Int? = nil,
         onQueue: SNFlowControl.QueueStyle = .none,
@@ -170,12 +201,37 @@ extension SNFlowControl.Action {
         return SNFlowControl.Action(id: id, index: index) { actionStyle in
             switch condition() {
             case true:
-                actionStyle(.onNext)
+                actionStyle(.onNext(nil))
             case false:
                 actionStyle(.onStop)
             }
         }
     }
+    
+    /// async Conditional block
+    /// - If `condition` is true, the flow continues to the next step;
+    ///   if false, the flow is interrupted. default is background thread
+    /// 非同步條件判斷區塊
+    /// - 如果為 condition 為 true 則繼續下一步，false 則中斷流程 預設背景queue
+    public static func ifNextAsync(
+        id: String? = nil,
+        index: Int? = nil,
+        onQueue: SNFlowControl.QueueStyle = .none,
+        asyncCondition: @escaping SNFlowControl.IfAsyncBlock
+    ) -> SNFlowControl.Action{
+        return SNFlowControl.Action(id: id, index: index) { actionStyle in
+            asyncCondition({ condition in
+                switch condition {
+                case true:
+                    actionStyle(.onNext(nil))
+                case false:
+                    actionStyle(.onStop)
+                }
+            })
+        }
+    }
+    
+    
     /// Conditional block
     /// - If `condition` is true, the flow is interrupted;
     ///   if false, the flow continues to the next step. default is background thread
@@ -192,10 +248,35 @@ extension SNFlowControl.Action {
             case true:
                 actionStyle(.onStop)
             case false:
-                actionStyle(.onNext)
+                actionStyle(.onNext(nil))
             }
         }
     }
+    
+    /// async Conditional block
+    /// - If `condition` is true, the flow is interrupted;
+    ///   if false, the flow continues to the next step. default is background thread
+    ///   Execution will wait and return when you decide.
+    /// 非同步條件判斷區塊 可自行決定何時返回 會等待
+    /// - 如果為 condition 為 true 則中斷流程，false 則繼續下一步 預設背景queue
+    public static func ifStopAsync(
+        id: String? = nil,
+        index: Int? = nil,
+        onQueue: SNFlowControl.QueueStyle = .none,
+        asyncCondition: @escaping SNFlowControl.IfAsyncBlock
+    ) -> SNFlowControl.Action{
+        return SNFlowControl.Action(id: id, index: index) { actionStyle in
+            asyncCondition({ condition in
+                switch condition {
+                case true:
+                    actionStyle(.onStop)
+                case false:
+                    actionStyle(.onNext(nil))
+                }
+            })
+        }
+    }
+    
     /// Conditional block
     /// - If `condition` is true, the action will be executed;
     ///   if false, it will not be executed. default is background thread
@@ -210,10 +291,11 @@ extension SNFlowControl.Action {
     ) -> SNFlowControl.Action{
         return SNFlowControl.Action(id: id, index: index) { actionStyle in
             let doAction = {
-                if (condition()) {
-                    action()
-                }
-                actionStyle(.onNext)
+                actionStyle(.onNext({
+                    if (condition()) {
+                        action()
+                    }
+                }))
             }
             queueHandle(onQueue: onQueue, action: doAction)
         }
@@ -233,13 +315,14 @@ extension SNFlowControl.Action {
     ) -> SNFlowControl.Action{
         return SNFlowControl.Action(id: id, index: index) { actionStyle in
             let doAction = {
-                switch condition() {
-                case true:
-                    ifAction()
-                default:
-                    elseAction()
-                }
-                actionStyle(.onNext)
+                actionStyle(.onNext({
+                    switch condition() {
+                    case true:
+                        ifAction()
+                    default:
+                        elseAction()
+                    }
+                }))
             }
             queueHandle(onQueue: onQueue, action: doAction)
         }
@@ -256,8 +339,9 @@ extension SNFlowControl.Action {
     ) -> SNFlowControl.Action{
         return SNFlowControl.Action(id: id, index: index) { actionStyle in
             let doAction = {
-                action()
-                actionStyle(.onNext)
+                actionStyle(.onNext({
+                    action()
+                }))
             }
             queueHandle(onQueue: onQueue, action: doAction)
         }
@@ -267,11 +351,13 @@ extension SNFlowControl.Action {
     public static func log(
         id: String? = nil,
         index: Int? = nil,
-        _ items: Any...
+        _ items: @autoclosure @escaping SNFlowControl.LogBlock
+        //_ items: Any...
     ) -> SNFlowControl.Action{
         return SNFlowControl.Action(id: id, index: index) { actionStyle in
-            print("SNLog: \(items)")
-            actionStyle(.onNext)
+            actionStyle(.onNext({
+                print("SNLog: \(items())")
+            }))
         }
     }
     /// Delay for a certain duration before continuing.
@@ -288,18 +374,18 @@ extension SNFlowControl.Action {
             switch onQueue {
             case .main(let createStyle):
                 DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
-                    actionStyle(.onNext)
+                    actionStyle(.onNext(nil))
                 }
             case .global(let createStyle):
                 DispatchQueue.global().asyncAfter(deadline: .now() + seconds) {
-                    actionStyle(.onNext)
+                    actionStyle(.onNext(nil))
                 }
             case .custom(queue: let queue):
                 queue.asyncAfter(deadline: .now() + seconds) {
-                    actionStyle(.onNext)
+                    actionStyle(.onNext(nil))
                 }
             case .none:
-                actionStyle(.onNext)
+                actionStyle(.onNext(nil))
             }
         }
     }
@@ -376,5 +462,4 @@ extension SNFlowControl.Action {
             action()
         }
     }
-
 }
