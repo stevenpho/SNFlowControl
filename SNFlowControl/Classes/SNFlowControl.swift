@@ -135,6 +135,22 @@ public class SNFlowControl {
         }
     }
     
+    deinit {
+        //print("deinit")
+        // TODO: add interrupt call
+//        if !self.isFinished {
+//            self.finished?(nil)
+//        }
+//        if !self.isFinished && self.finished != nil {
+//            let finishedBlock = self.finished
+//            let queueStyle = self.finishedQueueStyle
+//            SNFlowControl.Action.queueHandle(onQueue: queueStyle) {
+//                finishedBlock?(nil)
+//            }
+//        }
+    }
+
+    
     @discardableResult
     public func start() -> Self {
         switch syncStyle {
@@ -168,7 +184,7 @@ extension SNFlowControl {
     private func executeLockStyle(targetIndex: Int) {
         guard let action = actios[safe: targetIndex] else {
             if !hasAsync && !isFinished {
-                finishActionLockStyle(style: .onFinished)
+                finishActionLockStyle(style: .onFinished(nil))
             }
             return
         }
@@ -201,7 +217,13 @@ extension SNFlowControl {
                                 shouldFinish = !self.hasAsync && !self.isFinished
                             }
                         }
-                    case .onStop, .onFinished:
+                    case .onStop(let stopAction):
+                        stopAction?()
+                        if !self.isFinished {
+                            shouldFinish = true
+                        }
+                    case .onFinished(let finishedAction):
+                        finishedAction?()
                         if !self.isFinished {
                             shouldFinish = true
                         }
@@ -209,7 +231,7 @@ extension SNFlowControl {
                 }
 
                 if shouldFinish {
-                    self.finishActionLockStyle(style: .onFinished)
+                    self.finishActionLockStyle(style: .onFinished(nil))
                 } else if let blockNext = blockNext {
                     blockNext()
                 }
@@ -238,7 +260,13 @@ extension SNFlowControl {
                 case .onNext(let nextAction):
                     nextAction?()
                     self.executeLockStyle(targetIndex: targetIndex + 1)
-                case .onStop, .onFinished:
+                case .onStop(let stopAction):
+                    stopAction?()
+                    if !self.isFinished {
+                        shouldFinish = true
+                    }
+                case .onFinished(let finishedAction):
+                    finishedAction?()
                     if !self.isFinished {
                         shouldFinish = true
                     }
@@ -318,7 +346,7 @@ extension SNFlowControl {
         
         guard let firstAction = self.actios[safe: targetIndex] else {
             self.withFlowQueue {
-                checkFinishAction(style: .onFinished)
+                checkFinishAction(style: .onFinished(nil))
             }
             return
         }
@@ -346,11 +374,17 @@ extension SNFlowControl {
                                 }
                                 guard self.currentIndex == self.actios.count - 1 else {return}
                                 // 沒有使用 wait until before task 表示執行完畢
-                                checkFinishAction(style: .onFinished)
+                                checkFinishAction(style: .onFinished(nil))
                                 return
                             }
                             return
-                        case .onStop, .onFinished:
+                        case .onStop(let stopAction):
+                            stopAction?()
+                            guard !self.isFinished else {return}
+                            finishActionSerialQueueStyle(style: actionContext)
+                            return
+                        case .onFinished(let finishedAction):
+                            finishedAction?()
                             guard !self.isFinished else {return}
                             finishActionSerialQueueStyle(style: actionContext)
                             return
@@ -380,7 +414,13 @@ extension SNFlowControl {
                     action?()
                     next()
                     break
-                case .onStop, .onFinished:
+                case .onStop(let stopAction):
+                    stopAction?()
+                    guard !self.isFinished else {break}
+                    finishActionSerialQueueStyle(style: actionContext)
+                    break
+                case .onFinished(let finishedAction):
+                    finishedAction?()
                     guard !self.isFinished else {break}
                     finishActionSerialQueueStyle(style: actionContext)
                     break

@@ -111,8 +111,10 @@ extension SNFlowControl {
         }
         /// syncAction:  make sure update output value thread safe
         case onNext(_ syncAction: ThenBlock?)
-        case onStop
-        case onFinished
+        /// syncAction:  make sure update output value thread safe
+        case onStop(_ syncAction: ThenBlock?)
+        /// syncAction:  make sure update output value thread safe
+        case onFinished(_ syncAction: ThenBlock?)
     }
     /// Defines which queue the step should execute on.
     /// 控制任務在哪個 Queue 上執行
@@ -203,7 +205,7 @@ extension SNFlowControl.Action {
             case true:
                 actionStyle(.onNext(nil))
             case false:
-                actionStyle(.onStop)
+                actionStyle(.onStop(nil))
             }
         }
     }
@@ -225,7 +227,7 @@ extension SNFlowControl.Action {
                 case true:
                     actionStyle(.onNext(nil))
                 case false:
-                    actionStyle(.onStop)
+                    actionStyle(.onStop(nil))
                 }
             })
         }
@@ -246,7 +248,7 @@ extension SNFlowControl.Action {
         return SNFlowControl.Action(id: id, index: index) { actionStyle in
             switch condition() {
             case true:
-                actionStyle(.onStop)
+                actionStyle(.onStop(nil))
             case false:
                 actionStyle(.onNext(nil))
             }
@@ -269,7 +271,7 @@ extension SNFlowControl.Action {
             asyncCondition({ condition in
                 switch condition {
                 case true:
-                    actionStyle(.onStop)
+                    actionStyle(.onStop(nil))
                 case false:
                     actionStyle(.onNext(nil))
                 }
