@@ -36,7 +36,7 @@ pod 'SNFlowControl'
 ```ruby
 https://github.com/stevenpho/SNFlowControl.git
 ```
-3.Choose the version or branch you want (e.g., 1.7.1)
+3.Choose the version or branch you want (e.g., 1.7.2)
 
 4.Add the SNFlowControl library to your target
 
