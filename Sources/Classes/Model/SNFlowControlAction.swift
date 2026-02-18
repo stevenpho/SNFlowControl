@@ -73,7 +73,7 @@ extension SNFlowControl {
         ///   - index: Async Action index
         ///   - onQueue: Async Action use which queue
         ///   - asyncAction: async block
-        init(
+        public init(
             id: String? = nil,
             index: Int? = nil,
             onQueue: QueueStyle = .none,
