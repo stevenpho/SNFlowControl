@@ -4,6 +4,7 @@
 [![Version](https://img.shields.io/cocoapods/v/SNFlowControl.svg)](https://cocoapods.org/pods/SNFlowControl)
 [![License](https://img.shields.io/cocoapods/l/SNFlowControl.svg)](https://cocoapods.org/pods/SNFlowControl)
 [![Swift](https://img.shields.io/badge/swift-5.0-orange.svg)](https://swift.org)
+[![Swift Package Manager](https://img.shields.io/badge/SPM-supported-brightgreen.svg)](https://github.com/stevenpho/SNFlowControl)
 
 > A lightweight, SwiftUI-style builder for chaining synchronous and asynchronous flow control steps in Swift.
 
