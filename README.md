@@ -30,6 +30,16 @@
 pod 'SNFlowControl'
 ```
 
+### Swift Package Manager (SPM)
+1.In Xcode, go to File → Add Packages…
+2.Enter the GitHub repository URL:
+```ruby
+https://github.com/stevenpho/SNFlowControl.git
+```
+3.Choose the version or branch you want (e.g., 1.7.1)
+
+4.Add the SNFlowControl library to your target
+
 ### 🚀 Usage
 ```swift
 import SNFlowControl
