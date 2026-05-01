@@ -24,11 +24,11 @@ let package = Package(
                 //.process("Assets")
                 .copy("Assets/PrivacyInfo.xcprivacy")
             ]
-        )/*,
+        ),
         .testTarget(
             name: "SNFlowControlTests",
             dependencies: ["SNFlowControl"]
-        ),*/
+        )
     ]
 )
 
